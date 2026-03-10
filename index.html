@@ -3,96 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AMAPU | Tehnika un Materiāli</title>
+    <title id="meta-title">Kravu Express | Šķembas, Smilts, Melnzeme</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00b341; --dark-grey: #121212; --text: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--dark-grey); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        /* Standarta krāsas veciem pārlūkiem */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', Arial, sans-serif; }
+        body { background: #121212; color: #ffffff; overflow-x: hidden; }
 
-        /* Navigācija */
         header { 
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: rgba(18,18,18,0.95); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            border-bottom: 1px solid #333;
+            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #333; background: #1a1a1a; position: sticky; top: 0; z-index: 1000; 
         }
-        .logo { font-weight: 900; font-size: 1.5rem; color: #fff; text-decoration: none; }
-        .logo span { color: var(--primary); }
+        .logo { font-weight: 900; font-size: 1.2rem; color: #fff; text-decoration: none; }
+        .logo span { color: #00b341; }
         
-        .lang-menu { display: flex; gap: 8px; }
+        .lang-menu { display: flex; gap: 5px; }
         .lang-btn { 
-            color: #888; font-size: 0.8rem; font-weight: 700; padding: 5px 10px; 
-            border: 1px solid #444; border-radius: 4px; cursor: pointer; transition: 0.3s;
+            color: #888; font-size: 11px; font-weight: 700; padding: 5px 8px; 
+            border: 1px solid #444; border-radius: 4px; cursor: pointer; 
         }
-        .lang-btn.active { color: var(--primary); border-color: var(--primary); }
+        .lang-btn.active { color: #00b341; border-color: #00b341; }
 
-        /* Galvenā daļa */
-        main { 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; min-height: 80vh; padding: 40px 20px; text-align: center; 
-        }
+        main { padding: 20px; text-align: center; min-height: 70vh; }
         
-        .story-slider { height: 40px; margin-bottom: 10px; overflow: hidden; }
-        .story-slide { 
-            font-size: 1.8rem; font-weight: 900; text-transform: uppercase; 
-            display: none; color: var(--primary); animation: fadeIn 0.5s; 
-        }
+        .story-slider { height: 35px; margin-bottom: 10px; overflow: hidden; }
+        .story-slide { font-size: 1.4rem; font-weight: 900; text-transform: uppercase; display: none; color: #00b341; }
         .story-slide.active { display: block; }
         
-        .hero-desc { max-width: 500px; font-size: 1rem; color: #bbb; margin-bottom: 30px; }
-
-        /* Attēlu slaidrāde */
+        .hero-desc { font-size: 0.9rem; color: #bbb; margin-bottom: 20px; }
+        
         .slider-wrap { 
-            width: 100%; max-width: 600px; height: 350px; 
-            position: relative; overflow: hidden; border-radius: 20px; 
-            border: 2px solid #333; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%; max-width: 500px; height: 300px; position: relative; 
+            overflow: hidden; border-radius: 15px; margin: 0 auto 20px; border: 2px solid #333;
         }
-        .slide-img { 
-            position: absolute; width: 100%; height: 100%; 
-            object-fit: cover; opacity: 0; transition: 1s ease-in-out; top:0; left:0; 
-        }
+        .slide-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1s; top:0; left:0; }
         .slide-img.active { opacity: 1; }
 
         .btn-trigger { 
-            background: var(--primary); color: white; padding: 18px 40px; 
-            border-radius: 50px; font-weight: 900; text-transform: uppercase; 
-            border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(0, 179, 65, 0.4);
+            background: #00b341; color: white; padding: 15px 30px; border-radius: 50px; 
+            font-weight: 900; text-transform: uppercase; border: none; width: 100%; max-width: 300px;
         }
-        .btn-trigger:hover { transform: scale(1.05); }
+
+        /* SAZINIES TŪLĪT - FIKSĒTĀ JOSLA APAKŠĀ (Speciāli mobilajiem) */
+        .mobile-contact-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a;
+            display: flex; justify-content: space-around; padding: 10px;
+            border-top: 2px solid #333; z-index: 2000;
+        }
+        .m-contact-item {
+            text-decoration: none; color: white; font-size: 0.7rem; font-weight: 700;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+        }
+        .m-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .bg-wa { background: #25D366; }
+        .bg-call { background: #007AFF; }
+        .bg-sms { background: #8E8E93; }
 
         /* Modālais logs */
-        .modal { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; 
-        }
-        .modal-content { 
-            background: white; color: #1a1a1a; width: 100%; max-width: 450px; 
-            border-radius: 20px; padding: 30px; position: relative; 
-        }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; align-items: center; justify-content: center; }
+        .modal-content { background: white; color: #000; width: 90%; max-width: 400px; padding: 20px; border-radius: 15px; }
         
-        select, input, textarea { 
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; 
-            margin: 8px 0; font-size: 1rem; outline: none; 
-        }
-        .btn-final { 
-            width: 100%; padding: 16px; background: var(--primary); color: white; 
-            border: none; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 15px; 
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .btn-final { background: #00b341; color: white; border: none; padding: 15px; width: 100%; font-weight: 800; border-radius: 5px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">AMA<span>PU</span></a>
+    <a href="#" class="logo">KRAVU<span>EXPRESS</span></a>
     <div class="lang-menu">
         <div class="lang-btn active" onclick="changeLang('lv', this)">LV</div>
         <div class="lang-btn" onclick="changeLang('ru', this)">RU</div>
@@ -101,8 +79,7 @@
 </header>
 
 <main>
-    <div class="story-slider" id="story-slider-container">
-        </div>
+    <div class="story-slider" id="story-slider-container"></div>
     <p class="hero-desc" id="hero-desc"></p>
     
     <div class="slider-wrap">
@@ -115,120 +92,130 @@
     <button class="btn-trigger" onclick="openModal()" id="btn-main"></button>
 </main>
 
+<div class="mobile-contact-bar">
+    <a href="https://wa.me/37122312828" class="m-contact-item">
+        <div class="m-icon bg-wa">💬</div>
+        <span>WhatsApp</span>
+    </a>
+    <a href="tel:+37122312828" class="m-contact-item">
+        <div class="m-icon bg-call">📞</div>
+        <span id="label-call">Zvanīt</span>
+    </a>
+    <a href="sms:+37122312828" class="m-contact-item">
+        <div class="m-icon bg-sms">✉️</div>
+        <span>SMS</span>
+    </a>
+</div>
+
 <div id="orderModal" class="modal">
     <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h2 id="m-title" style="margin-bottom: 20px;"></h2>
+        <h2 id="m-title">Pasūtīt</h2>
         <select id="main-cat"></select>
         <input type="text" id="adr">
         <input type="text" id="user">
-        <textarea id="comm" rows="3"></textarea>
+        <textarea id="comm"></textarea>
         <button class="btn-final" onclick="send()" id="b-o"></button>
+        <button onclick="closeModal()" style="background:none; border:none; color:#888; width:100%; margin-top:10px;">Aizvērt</button>
     </div>
 </div>
 
 <script>
-    const translations = {
+    var translations = {
         lv: {
             titles: ["Beramās kravas", "Tehnikas noma", "Demontāža"],
-            desc: "Piegādājam pamatu Jūsu jaunajai mājai, ceļam un nākotnei.",
+            desc: "Piegādājam pamatu Jūsu jaunajai mājai un ceļam.",
             btn: "Sākt pasūtījumu",
             m_title: "Pasūtījums",
-            mats: ["Dolomīta šķembas", "Melnzeme", "Smilts", "Grants", "Tehnikas pakalpojumi"],
-            adr: "Piegādes adrese", user: "Jūsu vārds", comm: "Daudzums vai papildus jautājumi",
-            order_btn: "SŪTĪT UZ WHATSAPP"
+            mats: ["Dolomīta šķembas", "Melnzeme", "Smilts", "Grants", "Tehnika"],
+            adr: "Adrese", user: "Vārds", comm: "Daudzums/Info",
+            order_btn: "SŪTĪT WHATSAPP", call: "Zvanīt"
         },
         ru: {
             titles: ["Сыпучие грузы", "Аренда техники", "Демонтаж"],
-            desc: "Доставляем основу для вашего дома, дороги и будущего.",
+            desc: "Доставляем основу для вашего дома и дороги.",
             btn: "Начать заказ",
             m_title: "Заказ",
-            mats: ["Доломитовый щебень", "Чернозем", "Песок", "Гравий", "Услуги техники"],
-            adr: "Адрес доставки", user: "Ваше имя", comm: "Количество или доп. вопросы",
-            order_btn: "ОТПРАВИТЬ В WHATSAPP"
+            mats: ["Доломитовый щебень", "Чернозем", "Песок", "Гравий", "Техника"],
+            adr: "Адрес", user: "Имя", comm: "Кол-во/Инфо",
+            order_btn: "ОТПРАВИТЬ", call: "Звонить"
         },
         eng: {
             titles: ["Bulk Cargo", "Equipment Rental", "Demolition"],
-            desc: "Delivering the foundation for your house, road and future.",
+            desc: "Delivering foundations for your home and road.",
             btn: "Start Order",
             m_title: "Order",
-            mats: ["Dolomite stone", "Black soil", "Sand", "Gravel", "Equipment services"],
-            adr: "Delivery address", user: "Your name", comm: "Quantity or questions",
-            order_btn: "SEND TO WHATSAPP"
+            mats: ["Crushed stone", "Black soil", "Sand", "Gravel", "Equipment"],
+            adr: "Address", user: "Name", comm: "Quantity/Info",
+            order_btn: "SEND", call: "Call"
         }
     };
 
-    let currentLang = 'lv';
+    var currentLang = 'lv';
 
     function changeLang(lang, btn) {
         currentLang = lang;
-        const t = translations[lang];
+        var t = translations[lang];
         
-        // Atjaunot pogas stilu
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        var btns = document.getElementsByClassName('lang-btn');
+        for(var i=0; i<btns.length; i++) btns[i].className = 'lang-btn';
+        btn.className = 'lang-btn active';
 
-        // Atjaunot tekstus
-        document.getElementById('hero-desc').innerText = t.desc;
-        document.getElementById('btn-main').innerText = t.btn;
-        document.getElementById('m-title').innerText = t.m_title;
+        document.getElementById('hero-desc').innerHTML = t.desc;
+        document.getElementById('btn-main').innerHTML = t.btn;
+        document.getElementById('m-title').innerHTML = t.m_title;
         document.getElementById('adr').placeholder = t.adr;
         document.getElementById('user').placeholder = t.user;
         document.getElementById('comm').placeholder = t.comm;
-        document.getElementById('b-o').innerText = t.order_btn;
+        document.getElementById('b-o').innerHTML = t.order_btn;
+        document.getElementById('label-call').innerHTML = t.call;
 
-        // Atjaunot slīdošos virsrakstus
-        const container = document.getElementById('story-slider-container');
+        var container = document.getElementById('story-slider-container');
         container.innerHTML = '';
-        t.titles.forEach((title, i) => {
-            const d = document.createElement('div');
-            d.className = `story-slide ${i === 0 ? 'active' : ''}`;
-            d.innerText = title;
+        for(var j=0; j<t.titles.length; j++) {
+            var d = document.createElement('div');
+            d.className = 'story-slide' + (j === 0 ? ' active' : '');
+            d.innerHTML = t.titles[j];
             container.appendChild(d);
-        });
+        }
 
-        // Atjaunot izvēlni
-        const sel = document.getElementById('main-cat');
+        var sel = document.getElementById('main-cat');
         sel.innerHTML = '';
-        t.mats.forEach(m => {
-            const opt = document.createElement('option');
-            opt.value = m; opt.innerText = m; sel.appendChild(opt);
-        });
+        for(var k=0; k<t.mats.length; k++) {
+            var opt = document.createElement('option');
+            opt.value = t.mats[k]; opt.innerHTML = t.mats[k]; sel.appendChild(opt);
+        }
     }
 
     function openModal() { document.getElementById('orderModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
 
     function send() {
-        const mat = document.getElementById('main-cat').value;
-        const adr = document.getElementById('adr').value;
-        const name = document.getElementById('user').value;
-        const msg = `Pasūtījums: ${mat}\nAdrese: ${adr}\nVārds: ${name}\nInfo: ${document.getElementById('comm').value}`;
-        window.open(`https://wa.me/37122312828?text=${encodeURIComponent(msg)}`, '_blank');
+        var msg = "Pasūtījums: " + document.getElementById('main-cat').value + 
+                  "\nAdrese: " + document.getElementById('adr').value + 
+                  "\nVārds: " + document.getElementById('user').value;
+        window.open("https://wa.me/37122312828?text=" + encodeURIComponent(msg), '_blank');
     }
 
-    // Automātiskās funkcijas
-    let sIdx = 0;
-    setInterval(() => {
-        const slides = document.querySelectorAll('.story-slide');
+    // Slīdņa loģika (veciem telefoniem draudzīga)
+    var sIdx = 0;
+    setInterval(function() {
+        var slides = document.getElementsByClassName('story-slide');
         if(slides.length > 0) {
-            slides[sIdx].classList.remove('active');
+            slides[sIdx].className = 'story-slide';
             sIdx = (sIdx + 1) % slides.length;
-            slides[sIdx].classList.add('active');
+            slides[sIdx].className = 'story-slide active';
         }
     }, 3000);
 
-    let imgIdx = 0;
-    setInterval(() => {
-        const imgs = document.querySelectorAll('.slide-img');
-        imgs[imgIdx].classList.remove('active');
+    var imgIdx = 0;
+    setInterval(function() {
+        var imgs = document.getElementsByClassName('slide-img');
+        imgs[imgIdx].className = 'slide-img';
         imgIdx = (imgIdx + 1) % imgs.length;
-        imgs[imgIdx].classList.add('active');
+        imgs[imgIdx].className = 'slide-img active';
     }, 4000);
 
-    // Inicializācija
-    window.onload = () => changeLang('lv', document.querySelector('.lang-btn'));
+    window.onload = function() { changeLang('lv', document.getElementsByClassName('lang-btn')[0]); };
 </script>
-
 </body>
 </html>
