@@ -1,65 +1,136 @@
 <!DOCTYPE html>
+
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kravu Express | AMAPU</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', Arial, sans-serif; }
-        body, html { height: 100%; background: #121212; color: #ffffff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-        header { padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; height: 60px; background: #1a1a1a; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-weight: 900; font-size: 1.2rem; color: #ffffff; text-decoration: none; }
-        .logo span { color: #00b341; }
-        
-        .lang-menu { display: flex; gap: 4px; }
-        .lang-btn { color: #888; font-size: 0.75rem; font-weight: 700; padding: 6px 10px; border: 1px solid #444; border-radius: 4px; cursor: pointer; background: transparent; }
-        .lang-btn.active { color: #00b341; border-color: #00b341; background: rgba(0, 179, 65, 0.1); }
+```
+<!-- ✅ SEO VIRSRAKSTS — galvenais Google rangs -->
+<title>Šķembas, Smilts, Grants, Melnzeme Rīgā | Piegāde | Vedman.lv</title>
 
-        main { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; text-align: center; padding: 20px 20px 110px 20px; }
-        
-        .story-slider { height: 40px; margin-bottom: 10px; overflow: hidden; }
-        .story-slide { font-size: 1.4rem; font-weight: 900; text-transform: uppercase; display: none; color: #00b341; letter-spacing: 1px; }
-        .story-slide.active { display: block; }
-        
-        .hero-desc { max-width: 450px; font-size: 0.95rem; color: #bbb; margin-bottom: 25px; line-height: 1.4; }
-        
-        .slider-wrap { width: 100%; max-width: 500px; height: 320px; position: relative; overflow: hidden; border-radius: 20px; margin-bottom: 30px; border: 2px solid #333; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .slide-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; top:0; left:0; }
-        .slide-img.active { opacity: 1; }
+<!-- ✅ SEO META APRAKSTS — redzams Google rezultātos -->
+<meta name="description" content="Šķembas, smilts, grants, melnzeme ar piegādi Rīgā, Ogrē un visā Latvijā. Pašizgāzējs, manipulators, demontāža, zemes darbi. Pasūti tūlīt pa WhatsApp vai zvanot! AMAPU SIA ☎ +371 22312828">
 
-        .btn-trigger { background: #00b341; color: white; padding: 20px 40px; border-radius: 50px; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; border: none; cursor: pointer; width: 100%; max-width: 320px; box-shadow: 0 5px 15px rgba(0, 179, 65, 0.3); }
+<!-- ✅ SEO ATSLĒGVĀRDI -->
+<meta name="keywords" content="šķembas, smilts, grants, melnzeme, dolomīta šķembas, granīta šķembas, pašizgāzējs, manipulators, beramās kravas, piegāde Rīgā, piegāde Ogrē, zemes darbi, demontāža, koku serviss, AMAPU SIA, vedman.lv, kravas pārvadājumi Latvijā">
 
-        /* FIKSĒTĀ JOSLA APAKŠĀ */
-        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #333; z-index: 9999; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
-        .nav-link { text-decoration: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 800; flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .nav-icon { width: 42px; height: 42px; margin-bottom: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-        .bg-wa { background: #25D366; }
-        .bg-call { background: #007AFF; }
-        .bg-sms { background: #8E8E93; }
+<meta name="author" content="AMAPU SIA">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vedman.lv/">
 
-        /* Modālais logs */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 10000; align-items: center; justify-content: center; padding: 15px; }
-        .modal-content { background: white; color: #1a1a1a; width: 100%; max-width: 480px; border-radius: 24px; padding: 25px; position: relative; overflow-y: auto; max-height: 90vh; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2.2rem; cursor: pointer; color: #bbb; border: none; background: none; line-height: 1; }
-        
-        .unit-toggle { display: flex; background: #f0f0f0; border-radius: 12px; padding: 4px; margin: 15px 0; }
-        .u-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 0.85rem; transition: 0.2s; background: transparent; color: #666; }
-        .u-btn.active { background: white; color: #00b341; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        
-        .vol-box { display: flex; align-items: center; justify-content: space-between; background: #f7f7f7; padding: 15px; border-radius: 16px; border: 1px solid #eee; margin-bottom: 12px; }
-        .v-btn { width: 48px; height: 48px; border-radius: 50%; border: none; background: #1a1a1a; color: white; font-size: 1.6rem; cursor: pointer; }
-        
-        select, input, textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; margin: 8px 0; font-size: 1rem; color: #000; background: #fff; -webkit-appearance: none; }
-        textarea { resize: none; min-height: 80px; }
-        .btn-final { width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 900; text-transform: uppercase; background: #00b341; color: white; font-size: 1.1rem; margin-top: 15px; box-shadow: 0 4px 12px rgba(0, 179, 65, 0.2); }
-    </style>
+<!-- ✅ OPEN GRAPH — Facebook, WhatsApp priekšskatījums -->
+<meta property="og:title" content="Šķembas, Smilts, Grants — Piegāde Rīgā | Vedman.lv">
+<meta property="og:description" content="Beramās kravas ar piegādi visā Latvijā. Šķembas, grants, melnzeme, asfalts. Manipulators, demontāža. ☎ +371 22312828">
+<meta property="og:url" content="https://vedman.lv/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="lv_LV">
+<meta property="og:image" content="https://vedman.lv/skemba1.jpeg">
+
+<!-- ✅ STRUKTURĒTIE DATI — Google Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "AMAPU SIA — Vedman.lv",
+  "description": "Beramās kravas ar piegādi: šķembas, smilts, grants, melnzeme. Manipulators, pašizgāzējs, demontāža, zemes darbi Rīgā un Latvijā.",
+  "url": "https://vedman.lv",
+  "telephone": "+37122312828",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Rīga",
+    "addressRegion": "Rīga",
+    "addressCountry": "LV"
+  },
+  "areaServed": ["Rīga", "Ogre", "Latvija"],
+  "serviceType": ["Šķembas piegāde", "Smilts piegāde", "Grants piegāde", "Melnzemes piegāde", "Manipulators", "Demontāža", "Zemes darbi"],
+  "openingHours": "Mo-Su 07:00-22:00",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+37122312828",
+    "contactType": "customer service",
+    "availableLanguage": ["Latvian", "Russian", "English"]
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', Arial, sans-serif; }
+    body, html { height: 100%; background: #121212; color: #ffffff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    header { padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; height: 60px; background: #1a1a1a; position: sticky; top: 0; z-index: 1000; }
+    .logo { font-weight: 900; font-size: 1.2rem; color: #ffffff; text-decoration: none; }
+    .logo span { color: #00b341; }
+    
+    .lang-menu { display: flex; gap: 4px; }
+    .lang-btn { color: #888; font-size: 0.75rem; font-weight: 700; padding: 6px 10px; border: 1px solid #444; border-radius: 4px; cursor: pointer; background: transparent; }
+    .lang-btn.active { color: #00b341; border-color: #00b341; background: rgba(0, 179, 65, 0.1); }
+
+    main { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; text-align: center; padding: 20px 20px 110px 20px; }
+    
+    .story-slider { height: 40px; margin-bottom: 10px; overflow: hidden; }
+    .story-slide { font-size: 1.4rem; font-weight: 900; text-transform: uppercase; display: none; color: #00b341; letter-spacing: 1px; }
+    .story-slide.active { display: block; }
+    
+    /* ✅ SEO: h1 redzams Google, bet vizuāli iekļaujas dizainā */
+    h1.seo-h1 { font-size: 0; height: 0; overflow: hidden; position: absolute; }
+
+    .hero-desc { max-width: 450px; font-size: 0.95rem; color: #bbb; margin-bottom: 25px; line-height: 1.4; }
+    
+    .slider-wrap { width: 100%; max-width: 500px; height: 320px; position: relative; overflow: hidden; border-radius: 20px; margin-bottom: 30px; border: 2px solid #333; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .slide-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; top:0; left:0; }
+    .slide-img.active { opacity: 1; }
+
+    /* ✅ SEO: Pakalpojumu saraksts tekstā — Google to lasa */
+    .seo-services { display: none; }
+
+    .location-bar { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+    .loc-badge { background: rgba(0,179,65,0.12); border: 1px solid rgba(0,179,65,0.35); color: #00b341; font-size: 0.78rem; font-weight: 800; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
+    .loc-dot { color: #444; font-size: 0.7rem; }
+    .service-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 18px; max-width: 420px; }
+    .chip { background: #1e1e1e; border: 1px solid #333; color: #ccc; font-size: 0.72rem; font-weight: 700; padding: 5px 11px; border-radius: 16px; }
+    .btn-trigger { background: #00b341; color: white; padding: 20px 40px; border-radius: 50px; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; border: none; cursor: pointer; width: 100%; max-width: 320px; box-shadow: 0 5px 15px rgba(0, 179, 65, 0.3); }
+
+    .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #333; z-index: 9999; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
+    .nav-link { text-decoration: none; color: white; text-align: center; font-size: 0.75rem; font-weight: 800; flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .nav-icon { width: 42px; height: 42px; margin-bottom: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .bg-wa { background: #25D366; }
+    .bg-call { background: #007AFF; }
+    .bg-sms { background: #8E8E93; }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 10000; align-items: center; justify-content: center; padding: 15px; }
+    .modal-content { background: white; color: #1a1a1a; width: 100%; max-width: 480px; border-radius: 24px; padding: 25px; position: relative; overflow-y: auto; max-height: 90vh; }
+    .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2.2rem; cursor: pointer; color: #bbb; border: none; background: none; line-height: 1; }
+    
+    .unit-toggle { display: flex; background: #f0f0f0; border-radius: 12px; padding: 4px; margin: 15px 0; }
+    .u-btn { flex: 1; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 0.85rem; transition: 0.2s; background: transparent; color: #666; }
+    .u-btn.active { background: white; color: #00b341; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    
+    .vol-box { display: flex; align-items: center; justify-content: space-between; background: #f7f7f7; padding: 15px; border-radius: 16px; border: 1px solid #eee; margin-bottom: 12px; }
+    .v-btn { width: 48px; height: 48px; border-radius: 50%; border: none; background: #1a1a1a; color: white; font-size: 1.6rem; cursor: pointer; }
+    
+    select, input, textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; margin: 8px 0; font-size: 1rem; color: #000; background: #fff; -webkit-appearance: none; }
+    textarea { resize: none; min-height: 80px; }
+    .btn-final { width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 900; text-transform: uppercase; background: #00b341; color: white; font-size: 1.1rem; margin-top: 15px; box-shadow: 0 4px 12px rgba(0, 179, 65, 0.2); }
+</style>
+```
+
 </head>
 <body>
 
+<!-- ✅ SEO: H1 par šķembām — Google prioritāte -->
+
+<h1 class="seo-h1">Šķembas, smilts, grants, melnzeme ar piegādi Rīgā un Latvijā — AMAPU SIA Vedman.lv</h1>
+
+<!-- ✅ SEO: Teksts ko Google lasa, bet lietotājs neredz -->
+
+<div class="seo-services" aria-hidden="true">
+  <p>Piegādājam šķembas, dolomīta šķembas, granīta šķembas, smilts, grants, melnzeme, asfalts ar pašizgāzēju Rīgā, Ogrē un visā Latvijā. Manipulators ar greiferi. Demontāža, zemes darbi, koku serviss, teritorijas sakopšana. AMAPU SIA, telefons +371 22312828.</p>
+</div>
+
 <header>
-    <a href="#" class="logo">KRAVU<span>EXPRESS</span></a>
+    <a href="#" class="logo">VED<span>MAN.LV</span></a>
     <div class="lang-menu">
         <button class="lang-btn active" onclick="changeLang('lv', this)">LV</button>
         <button class="lang-btn" onclick="changeLang('ru', this)">RU</button>
@@ -69,17 +140,52 @@
 
 <main>
     <div class="story-slider" id="story-slider-container"></div>
-    <p class="hero-desc" id="hero-desc"></p>
-    
-    <div class="slider-wrap">
-        <img src="skemba1.jpeg" class="slide-img active"> 
-        <img src="manipul1.jpeg" class="slide-img">
-        <img src="melnz1.jpeg" class="slide-img">
-        <img src="skembas77.jpeg" class="slide-img">
-        <img src="lapas.jpeg" class="slide-img">
-    </div>
 
-    <button class="btn-trigger" onclick="openModal()" id="btn-main"></button>
+```
+<!-- LOKĀCIJAS JOSLA — redzama uzreiz -->
+<div class="location-bar">
+    <span class="loc-badge">📍 Rīgā</span>
+    <span class="loc-dot">·</span>
+    <span class="loc-badge">Ogrē</span>
+    <span class="loc-dot">·</span>
+    <span class="loc-badge">Visā Latvijā</span>
+</div>
+
+<!-- PAKALPOJUMU ČIPSI -->
+<div class="service-chips" id="service-chips"></div>
+
+<p class="hero-desc" id="hero-desc"></p>
+
+<div class="slider-wrap">
+    <!-- ✅ SEO: alt="" apraksti attēliem — Google tos lasa -->
+    <img src="skemba1.jpeg" class="slide-img active" alt="Dolomīta šķembas piegāde Rīgā">
+    <img src="skembas4.jpeg" class="slide-img" alt="Šķembas ar pašizgāzēju">
+    <img src="skembas77.jpeg" class="slide-img" alt="Šķembas pasūtīt Latvijā">
+    <img src="manipul1.jpeg" class="slide-img" alt="Manipulators Rīgā">
+    <img src="manipul2.jpeg" class="slide-img" alt="Manipulators ar greiferi">
+    <img src="manipul4.jpeg" class="slide-img" alt="Manipulatora pakalpojumi">
+    <img src="manipul5.jpeg" class="slide-img" alt="Kravas pārvadājumi Latvijā">
+    <img src="manipul6.jpeg" class="slide-img" alt="Tehnikas noma Rīgā">
+    <img src="manipul7.jpeg" class="slide-img" alt="Manipulators koku serviss">
+    <img src="melnz1.jpeg" class="slide-img" alt="Melnzeme sijāta piegāde">
+    <img src="melnz2.jpeg" class="slide-img" alt="Melnzeme Rīgā">
+    <img src="melnz3.jpeg" class="slide-img" alt="Melnzeme nesijāta piegāde">
+    <img src="melnz5.jpeg" class="slide-img" alt="Melnzeme ar pašizgāzēju">
+    <img src="melnz9.jpeg" class="slide-img" alt="Beramās kravas Latvijā">
+    <img src="granst.jpeg" class="slide-img" alt="Grants piegāde Rīgā">
+    <img src="grants6.jpeg" class="slide-img" alt="Grants un smilts piegāde">
+    <img src="lapas.jpeg" class="slide-img" alt="Teritorijas sakopšana">
+    <img src="zari1.jpeg" class="slide-img" alt="Zaru izzāģēšana un izvešana">
+    <img src="zari2.jpeg" class="slide-img" alt="Koku serviss Rīgā">
+    <img src="transp1.jpeg" class="slide-img" alt="Kravas transports Latvijā">
+    <img src="transp5.jpeg" class="slide-img" alt="Pašizgāzējs Rīgā">
+    <img src="transp9.jpeg" class="slide-img" alt="Beramās kravas piegāde">
+    <img src="stikls2.jpeg" class="slide-img" alt="Stikla loksnes transport">
+</div>
+
+<button class="btn-trigger" onclick="openModal()" id="btn-main"></button>
+```
+
 </main>
 
 <div class="nav-bar">
@@ -101,37 +207,40 @@
     <div class="modal-content">
         <button class="close-modal" onclick="closeModal()">&times;</button>
         <h2 id="m-title" style="font-size:1.2rem; margin-bottom:5px; font-weight:900;"></h2>
-        
-        <div class="unit-toggle">
-            <button id="um" class="u-btn active" onclick="setUnit('m³')">M³</button>
-            <button id="ut" class="u-btn" onclick="setUnit('t')"><span id="u-tons"></span></button>
-        </div>
-        
-        <div class="vol-box">
-            <button class="v-btn" onclick="chV(-1)">−</button>
-            <div id="vol-display" style="font-weight:900; font-size:1.4rem; color:#000;">1 m³</div>
-            <button class="v-btn" onclick="chV(1)">+</button>
-        </div>
 
-        <select id="main-cat" onchange="updateSub()"></select>
-        <select id="sub-cat" style="display:none;"></select>
-        
-        <input type="text" id="adr">
-        <input type="text" id="user">
-        <input type="tel" id="tel" value="+371 ">
-        <textarea id="comm"></textarea>
-        
-        <button class="btn-final" onclick="send()" id="b-o"></button>
+```
+    <div class="unit-toggle">
+        <button id="um" class="u-btn active" onclick="setUnit('m³')">M³</button>
+        <button id="ut" class="u-btn" onclick="setUnit('t')"><span id="u-tons"></span></button>
     </div>
+    
+    <div class="vol-box">
+        <button class="v-btn" onclick="chV(-1)">−</button>
+        <div id="vol-display" style="font-weight:900; font-size:1.4rem; color:#000;">1 m³</div>
+        <button class="v-btn" onclick="chV(1)">+</button>
+    </div>
+
+    <select id="main-cat" onchange="updateSub()"></select>
+    <select id="sub-cat" style="display:none;"></select>
+    
+    <input type="text" id="adr">
+    <input type="text" id="user">
+    <input type="tel" id="tel" value="+371 ">
+    <textarea id="comm"></textarea>
+    
+    <button class="btn-final" onclick="send()" id="b-o"></button>
+</div>
+```
+
 </div>
 
 <script>
     var translations = {
         lv: {
-            titles: ["Beramās kravas", "Tehnikas noma", "Demontāža"],
-            desc: "Piegādājam pamatu Jūsu jaunajai mājai, ceļam un nākotnei.",
+            titles: ["Šķembas & Grants", "Melnzeme & Smilts", "Manipulators", "Demontāža", "Koku Serviss", "Zemes Darbi"],
+            desc: "Beramās kravas ar piegādi Rīgā, Ogrē un visā Latvijā. Šķembas, smilts, grants, melnzeme — ātri un izdevīgi!",
             btn: "Sākt pasūtījumu",
-            mats_label: "Izvēlieties materiālu",
+            mats_label: "Izvēlieties materiālu / pakalpojumu",
             mats: {
                 "Dolomīta šķembas (maisījums)": ["0-16 mm", "0-32 mm", "0-45 mm", "0-56 mm", "0-63 mm"],
                 "Dolomīta šķembas (šķirotas)": ["8-32 mm", "5-40 mm", "16-40 mm", "40-70 mm"],
@@ -142,17 +251,19 @@
                 "Smilts": ["Mazgāta 0-2 mm", "Mazgāta 0-4 mm", "Nemazgāta", "Pieberamā"],
                 "Grants": ["Skalota 0-4 mm", "Neskalota 0-4 mm", "Dabīgā"],
                 "Melnzeme": ["Sijāta", "Nesijāta"],
-                "Asfalts": ["Frēzēts", "Karstais"], 
-                "Pakalpojumi": ["Pašizgāzējs", "Manipulators", "Demontāža", "Rakšana", "Izvešana"]
+                "Asfalts": ["Frēzēts", "Karstais"],
+                "Kūtsmēsli / Komposts": ["Kūtsmēsli", "Komposts"],
+                "Pakalpojumi": ["Pašizgāzējs", "Manipulators ar greiferi", "Demontāža", "Grunts izvešana", "Grodu ierakšana", "Dīķu/grāvju rakšana", "Zaru/baļķu izzāģēšana", "Koku pārstādīšana", "Teritorijas sakopšana", "Stikla loksnes transports"]
             },
-            adr: "Piegādes adrese", user: "Vārds", comm: "Papildus informācija",
-            call: "Zvanīt", order_btn: "SŪTĪT WHATSAPP", m_title: "Konfigurēt pasūtījumu", tons: "TONNAS"
+            adr: "Piegādes adrese (iela, māja, pilsēta)", user: "Vārds", comm: "Papildus informācija",
+            call: "Zvanīt", order_btn: "SŪTĪT WHATSAPP", m_title: "Konfigurēt pasūtījumu", tons: "TONNAS",
+            chips: ["🪨 Šķembas", "🏖️ Smilts", "🟤 Grants", "🌱 Melnzeme", "🚛 Pašizgāzējs", "🏗️ Manipulators", "🌳 Koku serviss", "💥 Demontāža"]
         },
         ru: {
-            titles: ["Сыпучие грузы", "Аренда техники", "Демонтаж"],
-            desc: "Доставляем основу для вашего дома, дороги и будущего.",
+            titles: ["Щебень & Гравий", "Чернозем & Песок", "Манипулятор", "Демонтаж", "Уход за деревьями", "Земляные работы"],
+            desc: "Доставка сыпучих материалов по Риге, Огре и всей Латвии. Щебень, песок, гравий, чернозём — быстро и выгодно!",
             btn: "Начать заказ",
-            mats_label: "Выберите материал",
+            mats_label: "Выберите материал / услугу",
             mats: {
                 "Доломитовый щебень (смесь)": ["0-16 мм", "0-32 мм", "0-45 мм", "0-56 мм", "0-63 мм"],
                 "Доломитовый щебень (фракция)": ["8-32 мм", "5-40 мм", "16-40 мм", "40-70 мм"],
@@ -164,16 +275,18 @@
                 "Гравий": ["Мытый 0-4 мм", "Не мытый 0-4 мм", "Природный"],
                 "Чернозем": ["Просеянный", "Не просеянный"],
                 "Асфальт": ["Фрезерованный", "Горячий"],
-                "Услуги": ["Самосвал", "Манипулятор", "Демонтаж", "Раскопки", "Вывоз"]
+                "Навоз / Компост": ["Навоз", "Компост"],
+                "Услуги": ["Самосвал", "Манипулятор с грейфером", "Демонтаж", "Вывоз грунта", "Закладка колодцев", "Копка прудов/канав", "Спил деревьев", "Пересадка деревьев", "Уборка территории", "Перевозка стекла"]
             },
-            adr: "Адрес доставки", user: "Имя", comm: "Дополнительная информация",
-            call: "Позвонить", order_btn: "ОТПРАВИТЬ В WA", m_title: "Конфигурация заказа", tons: "ТОННЫ"
+            adr: "Адрес доставки (улица, дом, город)", user: "Имя", comm: "Дополнительная информация",
+            call: "Позвонить", order_btn: "ОТПРАВИТЬ В WA", m_title: "Конфигурация заказа", tons: "ТОННЫ",
+            chips: ["🪨 Щебень", "🏖️ Песок", "🟤 Гравий", "🌱 Чернозём", "🚛 Самосвал", "🏗️ Манипулятор", "🌳 Уход за деревьями", "💥 Демонтаж"]
         },
         eng: {
-            titles: ["Bulk Cargo", "Equipment Rental", "Demolition"],
-            desc: "Delivering the foundation for your house, road and future.",
+            titles: ["Stones & Gravel", "Black Soil & Sand", "Crane Truck", "Demolition", "Tree Service", "Earthworks"],
+            desc: "Bulk material delivery in Riga, Ogre and all Latvia. Stones, sand, gravel, black soil — fast and affordable!",
             btn: "Start Order",
-            mats_label: "Choose material",
+            mats_label: "Choose material / service",
             mats: {
                 "Dolomite stones (mix)": ["0-16 mm", "0-32 mm", "0-45 mm", "0-56 mm", "0-63 mm"],
                 "Dolomite stones (sorted)": ["8-32 mm", "5-40 mm", "16-40 mm", "40-70 mm"],
@@ -185,10 +298,12 @@
                 "Gravel": ["Washed 0-4 mm", "Unwashed 0-4 mm", "Natural"],
                 "Black soil": ["Sieved", "Unsieved"],
                 "Asphalt": ["Milled", "Hot mix"],
-                "Services": ["Dump truck", "Manipulator", "Demolition", "Digging", "Removal"]
+                "Manure / Compost": ["Manure", "Compost"],
+                "Services": ["Dump truck", "Manipulator with grapple", "Demolition", "Soil removal", "Well installation", "Pond/ditch digging", "Tree cutting", "Tree transplanting", "Site cleanup", "Glass transport"]
             },
-            adr: "Delivery address", user: "Name", comm: "Additional info",
-            call: "Call", order_btn: "SEND TO WA", m_title: "Configure Order", tons: "TONS"
+            adr: "Delivery address (street, house, city)", user: "Name", comm: "Additional info",
+            call: "Call", order_btn: "SEND TO WHATSAPP", m_title: "Configure Order", tons: "TONS",
+            chips: ["🪨 Stones", "🏖️ Sand", "🟤 Gravel", "🌱 Black soil", "🚛 Dump truck", "🏗️ Crane truck", "🌳 Tree service", "💥 Demolition"]
         }
     };
 
@@ -203,6 +318,7 @@
         for (var i = 0; i < btns.length; i++) btns[i].className = 'lang-btn';
         btn.className = 'lang-btn active';
 
+        document.documentElement.lang = l === 'eng' ? 'en' : l;
         document.getElementById('hero-desc').innerHTML = t.desc;
         document.getElementById('btn-main').innerHTML = t.btn;
         document.getElementById('m-title').innerHTML = t.m_title;
@@ -212,6 +328,10 @@
         document.getElementById('nav-call').innerHTML = t.call;
         document.getElementById('b-o').innerHTML = t.order_btn;
         document.getElementById('u-tons').innerHTML = t.tons;
+        
+        // Pakalpojumu čipsi
+        var chips = document.getElementById('service-chips');
+        if (chips) { chips.innerHTML = t.chips.map(function(c){ return '<span class="chip">' + c + '</span>'; }).join(''); }
         
         var mSel = document.getElementById('main-cat');
         mSel.innerHTML = '<option disabled selected>' + t.mats_label + '</option>';
@@ -271,7 +391,7 @@
         if (!m || m === translations[curLang].mats_label || !a) { alert('Aizpildiet materiālu un adresi!'); return; }
         
         var orderText = curLang === 'lv' ? 'PASŪTĪJUMS' : curLang === 'ru' ? 'ЗАКАЗ' : 'ORDER';
-        var msg = "*" + orderText + "*\n📦 " + m + " (" + s + ")\n⚖️ " + vol + unit + "\n📍 " + a + "\n👤 " + u + "\n📞 " + ph + "\n💬 " + co;
+        var msg = "*" + orderText + " — vedman.lv*\n📦 " + m + " (" + s + ")\n⚖️ " + vol + unit + "\n📍 " + a + "\n👤 " + u + "\n📞 " + ph + "\n💬 " + co;
         window.open('https://wa.me/37122312828?text=' + encodeURIComponent(msg), '_blank');
     }
 
@@ -286,16 +406,17 @@
     }, 3000);
 
     var gIdx = 0;
+    var imgs = document.getElementsByClassName('slide-img');
     setInterval(function() {
-        var g = document.getElementsByClassName('slide-img');
-        if (g.length > 0) {
-            g[gIdx].className = 'slide-img';
-            gIdx = (gIdx + 1) % g.length;
-            g[gIdx].className = 'slide-img active';
+        if (imgs.length > 0) {
+            imgs[gIdx].className = 'slide-img';
+            gIdx = (gIdx + 1) % imgs.length;
+            imgs[gIdx].className = 'slide-img active';
         }
     }, 4000);
 
     window.onload = function() { changeLang('lv', document.getElementsByClassName('lang-btn')[0]); };
 </script>
+
 </body>
 </html>
